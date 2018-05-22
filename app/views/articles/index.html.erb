@@ -1,5 +1,14 @@
-<h1>INDEX</h1>
+<h1>All Articles....</h1>
 
-<%= @articles.each do |article| %>
-	<%= puts article %>
-<% end %>
+<p>
+	<%= link_to "Create new article", new_article_path,  class: 'btn btn-default' %>
+</p>
+
+
+<% @articles.each do |article| %>
+	<div class="well">
+		<h3><%= article.title %></h3>
+		<p><%= article.description %></p>
+		<%= link_to "Read More", article_path(article),  class: 'btn btn-default' %>
+	</div>
+<% end  %>
