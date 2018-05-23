@@ -1,15 +1,15 @@
-<% if @article.errors.any?  %>
+<% if error_object.errors.any?  %>
 	
 	<div class="row">
 		<div class="col-xs-8 col-xs-offset-2">
 			<div class="panel panel-danger">
 				<div class="panel-heading">
 					<h2 class="panel-title">
-						Please fix the following <%= pluralize(@article.errors.count, "error") %>!
+						Please fix the following <%= pluralize(error_object.errors.count, "error") %>!
 					</h2>
 					<div class="panel-body">
 						<ul>
-							<% @article.errors.full_messages.each do |msg|  %>
+							<% error_object.errors.full_messages.each do |msg|  %>
 								<li>
 									<%= msg %>
 								</li>
