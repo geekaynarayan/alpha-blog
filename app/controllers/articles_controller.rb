@@ -17,8 +17,6 @@ class ArticlesController < ApplicationController
 
 	def create
 		# render plain: params[:article].inspect
-		
-		byebug
 
 		@article = Article.new(article_params)
 		
