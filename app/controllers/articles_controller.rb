@@ -2,6 +2,8 @@ class ArticlesController < ApplicationController
 
 	# instead of coding redundantly you can create a method and have them execute at certain situations.
 	before_action :set_article, only: [:edit, :update,:show, :destroy]
+	before_action :require_user, except:[:index, :show] ## require_user is defined in application_controller
+	before_action :require_same_user, only: [:edit, :update, :destroy]
 
 	def index
 		@articles = Article.paginate(page: params[:page], per_page: 5)
@@ -21,7 +23,9 @@ class ArticlesController < ApplicationController
 		@article = Article.new(article_params)
 		
 		####### temporarily create a userid.
-		@article.user = User.first
+		#@article.user = User.first
+
+		@article.user = current_user
 
 		if(@article.save)
 			flash[:success] = "Article was successfully created."
@@ -61,4 +65,10 @@ class ArticlesController < ApplicationController
 		@article = Article.find(params[:id])
 	end
 
+	private def require_same_user
+	  	if current_user != @article.user
+	  		flash[:danger] = "You can only edit / delete your own article."
+	  		redirect_to root_path
+	 	end
+	end
 end
