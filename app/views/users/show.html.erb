@@ -9,6 +9,16 @@
 <h4 align="center">
 	<%= @user.username %>'s articles
 </h4>
+
+<h5 align="center">
+	<!-- <%= debug(@user) %>     USE this to debug from the client side -->
+	<% if logged_in? && current_user.admin? %>
+		<%= link_to "Delete this user and their articles", user_path(@user), method: :delete, 
+						data: {confirm: "Are you sure?"} %>
+	<% end %>
+</h5>
+
+
 <div align="center">
 	<%= will_paginate @user_articles %>
 </div>
