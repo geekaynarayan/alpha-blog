@@ -12,4 +12,7 @@ Rails.application.routes.draw do
   delete 'delete', to: 'sessions#destroy', as: 'logout'
 
   resources :users, except: [:new]
+
+resources :categories, except: [:destroy]
+
 end
