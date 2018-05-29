@@ -15,5 +15,16 @@ class CreateCategoriesTest < ActionDispatch::IntegrationTest
 
 	end
 
+	test "invalid category submission should result in failure" do
+		get new_category_path
+		assert_template 'categories/new'
+		assert_no_difference 'Category.count' do 
+			post categories_path, params: {category: {name: " "}} 
+
+			assert_template 'categories/new'
+			assert_select 'h2.panel-title' # look for specific tags from the expected page to ensure that page is rendered.
+			assert_select 'div.panel-body' # look for specific tags from the expected page to ensure that page is rendered.
+		end
+	end
 
 end
